@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
+import { styled, type CSSObject, type Theme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -8,25 +8,76 @@ import Typography from '@mui/material/Typography';
 import MenuContent from '../components/MenuContent';
 import CardAlert from '../components/CardAlert';
 import OptionsMenu from '../components/OptionsMenu';
-import SelectContent from '../components/SelectContent';
+import { drawerWidth } from '../constant';
+import { Button, Toolbar } from '@mui/material';
+import { useState } from 'react';
 
 
-const drawerWidth = 240;
 
-const Drawer = styled(MuiDrawer)({
+
+// const Drawer = styled(MuiDrawer)({
+//   width: drawerWidth,
+//   flexShrink: 0,
+//   boxSizing: 'border-box',
+//   mt: 10,
+  // [`& .${drawerClasses.paper}`]: {
+  //   width: drawerWidth,
+  //   boxSizing: 'border-box',
+  // },
+// });
+
+
+const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
-  flexShrink: 0,
-  boxSizing: 'border-box',
-  mt: 10,
-  [`& .${drawerClasses.paper}`]: {
-    width: drawerWidth,
-    boxSizing: 'border-box',
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme: Theme): CSSObject => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
 
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    variants: [
+      {
+        props: ({ open }) => open,
+        style: {
+          ...openedMixin(theme),
+          '& .MuiDrawer-paper': openedMixin(theme),
+        },
+      },
+      {
+        props: ({ open }) => !open,
+        style: {
+          ...closedMixin(theme),
+          '& .MuiDrawer-paper': closedMixin(theme),
+        },
+      },
+    ],
+  }),
+);
+
 export default function Sidebar() {
+  const [toggle,setToggle] = useState(true)
   return (
     <Drawer
+     open={toggle}
       variant="permanent"
       sx={{
         display: { xs: 'none', md: 'block' },
@@ -35,15 +86,17 @@ export default function Sidebar() {
         },
       }}
     >
-      <Box
+      <Toolbar
         sx={{
           display: 'flex',
           mt: 'calc(var(--template-frame-height, 0px) + 4px)',
-          p: 1.5,
+          // p: 1.5,
         }}
       >
-        <SelectContent />
-      </Box>
+        {/* <SelectContent /> */}
+       {toggle ?  <img style={{width:"70%",height:"50%"}} src={"google-large.png"} />: <Avatar sx={{width:27,height:27}} src={"google-small.webp"} />
+       }
+      </Toolbar>
       <Divider />
       <Box
         sx={{

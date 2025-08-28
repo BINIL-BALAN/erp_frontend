@@ -2,8 +2,8 @@ import type { FC } from "react"
 import Sidebar from "./Sidebar"
 import { alpha, Box, CssBaseline, Stack } from "@mui/material";
 import AppNavbar from "./Navbar";
-import Header from "./Header";
-import MainGrid from "../pages/Dashboard/component/MainGrid";
+// import Header from "./Header";
+import { Outlet } from "react-router-dom";
 
 const MainLayout:FC = ()=>{
   return (
@@ -32,8 +32,9 @@ const MainLayout:FC = ()=>{
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
-            <MainGrid />
+            {/* <Header /> */}
+            <Box sx={{p:5}} />
+            <Outlet/>
           </Stack>
         </Box>
       </Box>

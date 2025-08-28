@@ -13,7 +13,7 @@ export default function CardAlert() {
         <Typography gutterBottom sx={{ fontWeight: 600 }}>
           Plan about to expire
         </Typography>
-        <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary',textWrap:"wrap" }}>
           Enjoy 10% off when renewing your plan today.
         </Typography>
         <Button variant="contained" size="small" fullWidth>
