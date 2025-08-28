@@ -121,10 +121,10 @@ export default function Sidebar() {
 
       <Divider />
 
-      <Box sx={{ flexGrow: 1, overflow: "auto" }}>
+      <Stack sx={{ flexGrow: 1, overflow: "auto",alignContent:"space-between" }}>
         <MenuContent />
        {toggle && <CardAlert />}
-      </Box>
+      </Stack>
 
       <Stack
         direction="row"

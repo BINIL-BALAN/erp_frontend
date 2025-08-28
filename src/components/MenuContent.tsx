@@ -12,25 +12,32 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
 import { useLayoutData } from "../hooks";
-
+import routeList from "../routes/routeList";
+import { useNavigate } from "react-router-dom";
+import { type MouseEvent } from "react";
 const mainListItems = [
-  { text: "Home", icon: <HomeRoundedIcon /> },
-  { text: "Analytics", icon: <AnalyticsRoundedIcon /> },
-  { text: "Clients", icon: <PeopleRoundedIcon /> },
-  { text: "Tasks", icon: <AssignmentRoundedIcon /> },
-  { text: "Settings", icon: <SettingsRoundedIcon /> },
-  { text: "About", icon: <InfoRoundedIcon /> },
-  { text: "Feedback", icon: <HelpRoundedIcon /> },
+  { text: "Home", icon: <HomeRoundedIcon />,path:routeList.dashboard },
+  { text: "Project", icon: <AnalyticsRoundedIcon /> ,path:routeList.listProject  },
+  { text: "Clients", icon: <PeopleRoundedIcon />  ,path:routeList.listClient },
+  { text: "Work", icon: <AssignmentRoundedIcon /> ,path:routeList.listWork  },
+  { text: "Settings", icon: <SettingsRoundedIcon /> ,path:routeList.settings  },
+  { text: "About", icon: <InfoRoundedIcon /> ,path:routeList.about  },
+  { text: "Feedback", icon: <HelpRoundedIcon /> ,path:routeList.feedback  },
 ];
 
 export default function MenuContent() {
   const {toggle} = useLayoutData()
+  const navigate = useNavigate()
+  const handleNavigate = (e:MouseEvent<HTMLDivElement>)=>{
+    const path = String(e.currentTarget.dataset.path);
+    navigate(path)
+  }
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
       <List >
         {mainListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: "block" }}>
-            <ListItemButton selected={index === 0}>
+          <ListItem key={index} disablePadding sx={{ display: "block",my:.5 }}>
+            <ListItemButton data-path={item.path} onClick={handleNavigate} selected={index === 0}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               {toggle && <ListItemText primary={item.text} />}
             </ListItemButton>

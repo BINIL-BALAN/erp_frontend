@@ -7,13 +7,15 @@ import {
   dataGridCustomizations,
   datePickersCustomizations,
   treeViewCustomizations,
+  inputsCustomizations
 } from './theme/shared-theme/customizations';
 import AppTheme from './theme/shared-theme/AppTheme.tsx';
 const xThemeComponents = {
   ...chartsCustomizations,
   ...dataGridCustomizations,
   ...datePickersCustomizations,
-  ...treeViewCustomizations
+  ...treeViewCustomizations,
+  ...inputsCustomizations
 };
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
