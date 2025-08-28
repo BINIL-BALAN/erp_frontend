@@ -4,10 +4,11 @@ import { alpha, Box, CssBaseline, Stack } from "@mui/material";
 import AppNavbar from "./Navbar";
 // import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import { LayoutDataProvider } from "../context/LayoutContext";
 
 const MainLayout:FC = ()=>{
   return (
-    <>
+    <LayoutDataProvider>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
         <Sidebar />
@@ -38,7 +39,7 @@ const MainLayout:FC = ()=>{
           </Stack>
         </Box>
       </Box>
-    </>
+    </LayoutDataProvider>
   );
 }
 

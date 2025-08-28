@@ -11,6 +11,7 @@ import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
+import { useLayoutData } from "../hooks";
 
 const mainListItems = [
   { text: "Home", icon: <HomeRoundedIcon /> },
@@ -23,14 +24,15 @@ const mainListItems = [
 ];
 
 export default function MenuContent() {
+  const {toggle} = useLayoutData()
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
-      <List dense>
+      <List >
         {mainListItems.map((item, index) => (
           <ListItem key={index} disablePadding sx={{ display: "block" }}>
             <ListItemButton selected={index === 0}>
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
+              {toggle && <ListItemText primary={item.text} />}
             </ListItemButton>
           </ListItem>
         ))}

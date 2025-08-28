@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -16,8 +16,7 @@ import Typography from '@mui/material/Typography';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import SideMenuMobile from '../components/SideMenuMobile';
 import { drawerWidth } from "../constant";
-import { IconButton } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import { useLayoutData } from "../hooks";
 const Toolbar = styled(MuiToolbar)({
   width: "100%",
   padding: "12px",
@@ -35,8 +34,9 @@ const Toolbar = styled(MuiToolbar)({
 });
 
 export default function AppNavbar() {
+  const theme = useTheme()
   const [open, setOpen] = React.useState(false);
-
+  const {toggle} = useLayoutData()
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -93,7 +93,7 @@ export default function AppNavbar() {
           }}
           spacing={2}
         >
-          <Stack direction={"row"} spacing={2} sx={{pl:`${drawerWidth}px`,alignItems:"center"}}>
+          <Stack direction={"row"} spacing={2} sx={{pl:toggle ? `${drawerWidth}px` : `calc(${theme.spacing(7)} + 1px)`,alignItems:"center"}}>
              <NavbarBreadcrumbs />
           </Stack>
           <Stack direction="row" sx={{ gap: 1 }}>
