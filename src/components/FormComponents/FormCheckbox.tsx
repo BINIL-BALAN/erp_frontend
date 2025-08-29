@@ -1,36 +1,66 @@
-import { Checkbox,FormControlLabel,type RadioGroupProps, } from "@mui/material"
-import { Controller,type Control } from "react-hook-form"
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  type CheckboxProps,
+} from "@mui/material";
+import {
+  Controller,
+  type Control,
+  type RegisterOptions,
+} from "react-hook-form";
 type FormCheckboxProp = {
-   props:RadioGroupProps,
-   control:Control,
-   label:string,
-   name:string
-}
-function FormCheckbox({props,control,name,label}:FormCheckboxProp) {
+  props?: CheckboxProps;
+  control: Control;
+  label: string;
+  name: string;
+  rules: RegisterOptions;
+};
+function FormCheckbox({
+  props,
+  control,
+  name,
+  label,
+  rules,
+
+}: FormCheckboxProp) {
   return (
     <Controller
-    name={name}
-    control={control}
+      name={name}
+      control={control}
+      rules={rules}
       render={({
-        field: { ref, onChange, value = null, ...field },
+        field: { ref, onChange,value = null, ...field },
         fieldState: { error },
-      })=>{
-         return     <FormControlLabel
+      }) => {
+        return (
+          <FormControl
+            required={Boolean(rules.required)}
+            error={!!error}
+          >
+            <FormControlLabel
               sx={{ width: "fit-content" }}
-              {...props}
-              label={label}
+              label={Boolean(rules.required) ? `${label} *`:label}
               control={
-                <Checkbox
-                  onChange={e=>{onChange(e)}}
-                  checked={value || false}
-                  {...props}
-                  {...field}
-                />
+                  <Checkbox
+                    {...props}
+                    {...field}
+                    name={name}
+                    size="small"
+                    checked={Boolean(value)}
+                    onChange={(e) => {
+                      onChange(e.target.checked);
+                    }}
+                  />
               }
-            />
+              />
+              <FormHelperText>{error?.message}</FormHelperText>
+          </FormControl>
+        );
       }}
     />
-  )
+  );
 }
 
-export default FormCheckbox
+export default FormCheckbox;

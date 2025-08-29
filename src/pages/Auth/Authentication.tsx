@@ -4,9 +4,9 @@ import routeList from "../../routes/routeList";
 
 function Authentication() {
   const { user } = useAuth();
-  if (!user) {
-    return <Navigate to={routeList.login} replace />;
-  }
+  // if (!Boolean(user)) {
+  //   return <Navigate to={routeList.login} replace />;
+  // }
   return <Outlet />;
 }
 
