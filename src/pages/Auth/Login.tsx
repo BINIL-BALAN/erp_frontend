@@ -110,8 +110,6 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
       setPasswordErrorMessage('');
     }
 
-    
-
     return isValid;
   };
 
@@ -143,7 +141,6 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
             <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
               <TextField
-              label="Email"
                 error={emailError}
                 helperText={emailErrorMessage}
                 id="email"
