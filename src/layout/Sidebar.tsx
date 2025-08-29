@@ -15,6 +15,7 @@ import OptionsMenu from "../components/OptionsMenu";
 import { drawerWidth } from "../constant";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useLayoutData } from "../hooks";
+import { SitemarkIcon, SitemarkIconSmall } from "../pages/Auth/components/CustomIcons";
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -80,21 +81,17 @@ export default function Sidebar() {
         }}
       >
         <Stack
+        spacing={3}
           direction={"row"}
           justifyContent={"space-between"}
           alignItems={"center"}
         >
           {toggle ? (
-            <img
-              style={{ width: "70%", height: "50%" }}
-              src="google-large.png"
-            />
+            <SitemarkIcon/>
           ) : (
-            <Avatar
-              onClick={toggleOut}
-              sx={{ width: 27, height: 27, cursor: "pointer" }}
-              src="google-small.webp"
-            />
+            <div style={{cursor:"pointer"}} role="button"  onClick={toggleOut}>
+              <SitemarkIconSmall/>
+            </div>
           )}
 
           {/* Toggle button floating on border */}
@@ -121,10 +118,10 @@ export default function Sidebar() {
 
       <Divider />
 
-      <Box sx={{ flexGrow: 1, overflow: "auto" }}>
+      <Stack sx={{ flexGrow: 1, overflow: "auto",alignContent:"space-between" }}>
         <MenuContent />
        {toggle && <CardAlert />}
-      </Box>
+      </Stack>
 
       <Stack
         direction="row"
