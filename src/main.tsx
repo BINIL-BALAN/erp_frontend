@@ -1,26 +1,29 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './style/index.css'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./style/index.css";
+import App from "./App.tsx";
 import {
   chartsCustomizations,
   dataGridCustomizations,
   datePickersCustomizations,
   treeViewCustomizations,
-  inputsCustomizations
-} from './theme/shared-theme/customizations';
-import AppTheme from './theme/shared-theme/AppTheme.tsx';
+  inputsCustomizations,
+} from "./theme/shared-theme/customizations";
+import AppTheme from "./theme/shared-theme/AppTheme.tsx";
+import { AuthProvider } from "./context/AuthContext.tsx";
 const xThemeComponents = {
   ...chartsCustomizations,
   ...dataGridCustomizations,
   ...datePickersCustomizations,
   ...treeViewCustomizations,
-  ...inputsCustomizations
+  ...inputsCustomizations,
 };
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppTheme themeComponents={xThemeComponents}>
-    <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </AppTheme>
-  </StrictMode>,
-)
+  </StrictMode>
+);

@@ -1,5 +1,6 @@
 const routeList = {
     root:"/",
+    login:"login",
     dashboard:"dashboard",
     addWork:"add-work",
     listWork:"list-work",
@@ -9,7 +10,8 @@ const routeList = {
     addClient:"list-clinet",
     settings:"settings",
     about:"about",
-    feedback:"feedback"
+    feedback:"feedback",
+    pageNotFound:"*"
 }
 
 export default routeList
