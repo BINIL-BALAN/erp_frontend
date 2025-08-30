@@ -135,16 +135,16 @@ export default function Sidebar() {
       >
         <Avatar
           alt="Riley Carter"
-          src="/static/images/avatar/7.jpg"
+          src="https://www.shutterstock.com/image-vector/man-character-face-avatar-glasses-260nw-562077406.jpg"
           sx={{ width: 36, height: 36 }}
         />
         {toggle && (
           <Box sx={{ mr: "auto" }}>
             <Typography variant="body2" sx={{ fontWeight: 500 }}>
-              Riley Carter
+              John Doe
             </Typography>
             <Typography variant="caption" sx={{ color: "text.secondary" }}>
-              riley@email.com
+              johndoe@email.com
             </Typography>
           </Box>
         )}

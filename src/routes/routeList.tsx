@@ -1,7 +1,7 @@
 const routeList = {
     root:"/",
     login:"login",
-    dashboard:"dashboard",
+    dashboard:"/",
     addWork:"add-work",
     listWork:"list-work",
     addProject:"add-project",

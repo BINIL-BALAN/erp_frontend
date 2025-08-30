@@ -26,18 +26,20 @@ const mainListItems = [
 ];
 
 export default function MenuContent() {
-  const {toggle} = useLayoutData()
+  const {toggle,handleBreadCrumb} = useLayoutData()
   const navigate = useNavigate()
   const handleNavigate = (e:MouseEvent<HTMLDivElement>)=>{
     const path = String(e.currentTarget.dataset.path);
+    const page = String(e.currentTarget.dataset.page);
     navigate(path)
+    handleBreadCrumb(["Dashboard",page])
   }
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
       <List >
         {mainListItems.map((item, index) => (
           <ListItem key={index} disablePadding sx={{ display: "block",my:.5 }}>
-            <ListItemButton data-path={item.path} onClick={handleNavigate} selected={index === 0}>
+            <ListItemButton data-path={item.path} data-page={item.text} onClick={handleNavigate} selected={index === 0}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               {toggle && <ListItemText primary={item.text} />}
             </ListItemButton>

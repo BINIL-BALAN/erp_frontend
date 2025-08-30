@@ -2,6 +2,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
+import { useLayoutData } from '../hooks';
 
 const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
   margin: theme.spacing(1, 0),
@@ -15,15 +16,19 @@ const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
 }));
 
 export default function NavbarBreadcrumbs() {
+  const {breadCrumb} = useLayoutData()
   return (
     <StyledBreadcrumbs
       aria-label="breadcrumb"
       separator={<NavigateNextRoundedIcon fontSize="small" />}
     >
-      <Typography variant="body1">Dashboard</Typography>
-      <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 600 }}>
-        Home
-      </Typography>
+      {
+        breadCrumb.map((item,i)=>(i == breadCrumb.length -1) ?  <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 600 }}>
+        {item}
+      </Typography> : <Typography variant="body1">{item}</Typography>
+      )
+      }
+   
     </StyledBreadcrumbs>
   );
 }

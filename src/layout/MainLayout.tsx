@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import Sidebar from "./Sidebar"
-import { alpha, Box, CssBaseline, Stack } from "@mui/material";
+import { alpha, Box, CssBaseline } from "@mui/material";
 import AppNavbar from "./Navbar";
 // import Header from "./Header";
 import { Outlet } from "react-router-dom";
@@ -24,19 +24,13 @@ const MainLayout:FC = ()=>{
             overflow: 'auto',
           })}
         >
-          <Stack
-            spacing={2}
-            sx={{
-              alignItems: 'center',
-              mx: 3,
-              pb: 5,
-              mt: { xs: 8, md: 0 },
-            }}
+          <Box
+           sx={{p:2}}
           >
             {/* <Header /> */}
             <Box sx={{p:5}} />
             <Outlet/>
-          </Stack>
+          </Box>
         </Box>
       </Box>
     </LayoutDataProvider>

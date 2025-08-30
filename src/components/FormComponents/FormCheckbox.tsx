@@ -3,7 +3,9 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
+  Grid,
   type CheckboxProps,
+  type GridSize,
 } from "@mui/material";
 import {
   Controller,
@@ -12,10 +14,18 @@ import {
 } from "react-hook-form";
 type FormCheckboxProp = {
   props?: CheckboxProps;
-  control: Control;
+  control: Control<any>;
   label: string;
   name: string;
   rules: RegisterOptions;
+  size?:GridSize
+    | {
+        xs?: GridSize;
+        sm?: GridSize;
+        md?: GridSize;
+        lg?: GridSize;
+        xl?: GridSize;
+      };
 };
 function FormCheckbox({
   props,
@@ -23,26 +33,27 @@ function FormCheckbox({
   name,
   label,
   rules,
-
+  size,
 }: FormCheckboxProp) {
   return (
-    <Controller
-      name={name}
-      control={control}
-      rules={rules}
-      render={({
-        field: { ref, onChange,value = null, ...field },
-        fieldState: { error },
-      }) => {
-        return (
-          <FormControl
-            required={Boolean(rules.required)}
-            error={!!error}
-          >
-            <FormControlLabel
-              sx={{ width: "fit-content" }}
-              label={Boolean(rules.required) ? `${label} *`:label}
-              control={
+    <Grid size={size}>
+      <Controller
+        name={name}
+        control={control}
+        rules={rules}
+        render={({
+          field: { ref, onChange, value = null, ...field },
+          fieldState: { error },
+        }) => {
+          return (
+            <FormControl
+              // required={Boolean(rules.required)}
+              error={!!error}
+            >
+              <FormControlLabel
+                sx={{ width: "fit-content" }}
+                label={Boolean(rules.required) ? `${label} *` : label}
+                control={
                   <Checkbox
                     {...props}
                     {...field}
@@ -53,13 +64,14 @@ function FormCheckbox({
                       onChange(e.target.checked);
                     }}
                   />
-              }
+                }
               />
-              <FormHelperText>{error?.message}</FormHelperText>
-          </FormControl>
-        );
-      }}
-    />
+              <FormHelperText>{error?.message || ""}</FormHelperText>
+            </FormControl>
+          );
+        }}
+      />
+    </Grid>
   );
 }
 
