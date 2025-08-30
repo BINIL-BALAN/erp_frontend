@@ -44,7 +44,7 @@ function FormSelect({
           <FormControl fullWidth>
             <InputLabel id={`idforselect${name}`}>{Boolean(rules.required) ? `${label} *`:label}</InputLabel>
             <Select
-              {...props}
+              {...(props ?? {})}
               {...field}
               labelId={`idforselect${name}`}
               id={`idforselect${name}`}

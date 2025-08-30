@@ -37,7 +37,7 @@ function FormText({ props, control, name, label, rules,size }: FormTextProp) {
     }) => {
       return (
         <TextField
-          {...props}
+         {...(props ?? {})}
           {...field}
           // required={Boolean(rules.required)}
           fullWidth

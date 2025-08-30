@@ -57,7 +57,7 @@ function FormRadio({
             >
               <FormLabel id={`idof${name}`}>{label}</FormLabel>
               <RadioGroup
-                {...props}
+                {...(props ?? {})}
                 {...field}
                 aria-labelledby={`idof${name}`}
                 name={name}

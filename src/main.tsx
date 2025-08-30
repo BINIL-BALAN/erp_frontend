@@ -18,12 +18,16 @@ const xThemeComponents = {
   ...treeViewCustomizations,
   ...inputsCustomizations,
 };
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AppTheme themeComponents={xThemeComponents}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </AppTheme>
+    <QueryClientProvider client={queryClient}>
+      <AppTheme themeComponents={xThemeComponents}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </AppTheme>
+    </QueryClientProvider>
   </StrictMode>
 );

@@ -33,12 +33,82 @@ export const inputsCustomizations: Components<Theme> = {
         textTransform: "none",
         variants: [
           {
-            props: {
-              size: "small",
-            },
+            props: { color: "success", variant: "contained" },
             style: {
-              height: "2.25rem",
-              padding: "8px 12px",
+              color: "white",
+              backgroundColor: theme.palette.success.main,
+              backgroundImage: `linear-gradient(to bottom, ${theme.palette.success.main}, ${theme.palette.success.main})`,
+              border: `1px solid ${theme.palette.success.light}`,
+              "&:hover": {
+                backgroundColor: theme.palette.success[600],
+                backgroundImage: "none",
+              },
+              "&:active": {
+                backgroundColor: theme.palette.success.light,
+              },
+              ...theme.applyStyles?.("dark", {
+                color: "black",
+                backgroundColor: theme.palette.success.light,
+                backgroundImage: `linear-gradient(to bottom, ${theme.palette.success.light}, ${theme.palette.success.light})`,
+                border: `1px solid ${theme.palette.success.light}`,
+                "&:hover": {
+                  backgroundColor: theme.palette.success.light,
+                },
+                "&:active": {
+                  backgroundColor: theme.palette.success.main,
+                },
+              }),
+            },
+          },
+          // ✅ Success Outlined
+          {
+            props: { color: "success", variant: "outlined" },
+            style: {
+              color: theme.palette.success.dark,
+              border: "1px solid",
+              borderColor: theme.palette.success.light,
+              backgroundColor: theme.palette.success.light,
+              "&:hover": {
+                backgroundColor: theme.palette.success[200],
+                borderColor: theme.palette.success.main,
+              },
+              "&:active": {
+                backgroundColor: theme.palette.success.light,
+              },
+              ...theme.applyStyles?.("dark", {
+                color: theme.palette.success.light,
+                borderColor: theme.palette.success.dark,
+                backgroundColor: alpha(theme.palette.success.dark, 0.3),
+                "&:hover": {
+                  backgroundColor: alpha(theme.palette.success.dark, 0.6),
+                },
+                "&:active": {
+                  backgroundColor: alpha(theme.palette.success.dark, 0.5),
+                },
+              }),
+            },
+          },
+
+          // ✅ Success Text
+          {
+            props: { color: "success", variant: "text" },
+            style: {
+              color: theme.palette.success[700],
+              "&:hover": {
+                backgroundColor: alpha(theme.palette.success.main, 0.5),
+              },
+              "&:active": {
+                backgroundColor: alpha(theme.palette.success.main, 0.7),
+              },
+              ...theme.applyStyles?.("dark", {
+                color: theme.palette.success[100],
+                "&:hover": {
+                  backgroundColor: alpha(theme.palette.success.main, 0.5),
+                },
+                "&:active": {
+                  backgroundColor: alpha(theme.palette.success.main, 0.3),
+                },
+              }),
             },
           },
           {
@@ -46,7 +116,16 @@ export const inputsCustomizations: Components<Theme> = {
               size: "small",
             },
             style: {
-              height: "2.5rem", // 40px
+              // height: "2.25rem",
+              // padding: "8px 12px",
+            },
+          },
+          {
+            props: {
+              size: "small",
+            },
+            style: {
+              // height: "2.5rem", // 40px
             },
           },
           {
@@ -453,162 +532,162 @@ export const inputsCustomizations: Components<Theme> = {
       size: "small",
     },
   },
-MuiAutocomplete: {
-  styleOverrides: {
-    root: ({ theme }) => ({
-      "& .MuiOutlinedInput-root": {
-        padding: "4px 8px",
-        borderRadius: (theme.vars || theme).shape.borderRadius,
-        backgroundColor: (theme.vars || theme).palette.background.paper,
-        "&:hover": {
-          borderColor: gray[400],
-        },
-        "&.Mui-focused": {
-          borderColor: brand[400],
-          boxShadow: `0 0 0 2px ${alpha(brand[500], 0.25)}`,
-        },
-        ...theme.applyStyles("dark", {
+  MuiAutocomplete: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        "& .MuiOutlinedInput-root": {
+          padding: "4px 8px",
+          borderRadius: (theme.vars || theme).shape.borderRadius,
           backgroundColor: (theme.vars || theme).palette.background.paper,
           "&:hover": {
-            borderColor: gray[600],
+            borderColor: gray[400],
           },
-        }),
-      },
-      "& .MuiFormLabel-root": {
-        fontSize: theme.typography.body2.fontSize,
-        color: gray[600],
-        "&.Mui-focused": {
-          color: brand[500],
+          "&.Mui-focused": {
+            borderColor: brand[400],
+            boxShadow: `0 0 0 2px ${alpha(brand[500], 0.25)}`,
+          },
+          ...theme.applyStyles("dark", {
+            backgroundColor: (theme.vars || theme).palette.background.paper,
+            "&:hover": {
+              borderColor: gray[600],
+            },
+          }),
+        },
+        "& .MuiFormLabel-root": {
+          fontSize: theme.typography.body2.fontSize,
+          color: gray[600],
+          "&.Mui-focused": {
+            color: brand[500],
+          },
+          ...theme.applyStyles("dark", {
+            color: gray[400],
+            "&.Mui-focused": {
+              color: brand[300],
+            },
+          }),
+        },
+        "& .MuiInputBase-input": {
+          padding: "6px 8px",
+        },
+      }),
+
+      // popup icon button (dropdown arrow)
+      popupIndicator: ({ theme }) => ({
+        color: gray[500],
+        padding: 4,
+        border: 0,
+        "&:hover": {
+          backgroundColor: alpha(brand[500], 0.08),
+          color: brand[600],
         },
         ...theme.applyStyles("dark", {
           color: gray[400],
-          "&.Mui-focused": {
-            color: brand[300],
+          "&:hover": {
+            backgroundColor: alpha(brand[400], 0.1),
+            color: brand[200],
           },
         }),
-      },
-      "& .MuiInputBase-input": {
-        padding: "6px 8px",
-      },
-    }),
+      }),
 
-    // popup icon button (dropdown arrow)
-    popupIndicator: ({ theme }) => ({
-      color: gray[500],
-      padding: 4,
-      border: 0,
-      "&:hover": {
-        backgroundColor: alpha(brand[500], 0.08),
-        color: brand[600],
-      },
-      ...theme.applyStyles("dark", {
+      // clear (x) button
+      clearIndicator: ({ theme }) => ({
         color: gray[400],
+        border: 0,
+        padding: 4,
         "&:hover": {
-          backgroundColor: alpha(brand[400], 0.1),
-          color: brand[200],
+          backgroundColor: alpha(brand[500], 0.08),
+          color: brand[600],
         },
+        ...theme.applyStyles("dark", {
+          color: gray[500],
+          "&:hover": {
+            backgroundColor: alpha(brand[400], 0.1),
+            color: brand[200],
+          },
+        }),
       }),
-    }),
 
-    // clear (x) button
-    clearIndicator: ({ theme }) => ({
-      color: gray[400],
-      border: 0,
-      padding: 4,
-      "&:hover": {
-        backgroundColor: alpha(brand[500], 0.08),
-        color: brand[600],
+      popper: {
+        zIndex: 1300,
       },
-      ...theme.applyStyles("dark", {
-        color: gray[500],
-        "&:hover": {
-          backgroundColor: alpha(brand[400], 0.1),
-          color: brand[200],
-        },
-      }),
-    }),
-
-    popper: {
-      zIndex: 1300,
-    },
-    paper: ({ theme }) => ({
-      boxShadow: theme.shadows[3],
-      borderRadius: (theme.vars || theme).shape.borderRadius,
-      ...theme.applyStyles("dark", {
-        backgroundColor: (theme.vars || theme).palette.background.paper,
-        boxShadow: theme.shadows[6],
-      }),
-    }),
-    option: ({ theme }) => ({
-      fontSize: theme.typography.body2.fontSize,
-      "&[aria-selected='true']": {
-        // backgroundColor: alpha(brand[500], 0.1),
-        backgroundColor: (theme.vars || theme).palette.background.paper,
-        color: brand[700],
-      },
-      "&:hover": {
-        // backgroundColor: alpha(brand[500], 0.08),
-        backgroundColor: (theme.vars || theme).palette.background.paper,
-      },
-      ...theme.applyStyles("dark", {
-        "&[aria-selected='true']": {
-          // backgroundColor: alpha(brand[400], 0.2),
+      paper: ({ theme }) => ({
+        boxShadow: theme.shadows[3],
+        borderRadius: (theme.vars || theme).shape.borderRadius,
+        ...theme.applyStyles("dark", {
           backgroundColor: (theme.vars || theme).palette.background.paper,
-          color: brand[200],
+          boxShadow: theme.shadows[6],
+        }),
+      }),
+      option: ({ theme }) => ({
+        fontSize: theme.typography.body2.fontSize,
+        "&[aria-selected='true']": {
+          // backgroundColor: alpha(brand[500], 0.1),
+          backgroundColor: (theme.vars || theme).palette.background.paper,
+          color: brand[700],
         },
         "&:hover": {
-          backgroundColor: alpha(brand[400], 0.15),
+          // backgroundColor: alpha(brand[500], 0.08),
+          backgroundColor: (theme.vars || theme).palette.background.paper,
         },
+        ...theme.applyStyles("dark", {
+          "&[aria-selected='true']": {
+            // backgroundColor: alpha(brand[400], 0.2),
+            backgroundColor: (theme.vars || theme).palette.background.paper,
+            color: brand[200],
+          },
+          "&:hover": {
+            backgroundColor: alpha(brand[400], 0.15),
+          },
+        }),
       }),
-    }),
+    },
   },
-},
-MuiSelect:{
-  defaultProps:{
-    size:"small"
-  }
-}
-// MuiSelect:{
-//   defaultProps:{
-//      size:"small",
-//      fullWidth:true,
-//   },
-//   styleOverrides:{
-//      root: ({ theme }) => ({"& .MuiOutlinedInput-root": {
-//         padding: "4px 8px",
-//         borderRadius: (theme.vars || theme).shape.borderRadius,
-//         backgroundColor: (theme.vars || theme).palette.background.paper,
-//         "&:hover": {
-//           borderColor: gray[400],
-//         },
-//         "&.Mui-focused": {
-//           borderColor: brand[400],
-//           boxShadow: `0 0 0 2px ${alpha(brand[500], 0.25)}`,
-//         },
-//         ...theme.applyStyles("dark", {
-//           backgroundColor: (theme.vars || theme).palette.background.paper,
-//           "&:hover": {
-//             borderColor: gray[600],
-//           },
-//         }),
-//       },
-//       "& .MuiFormLabel-root": {
-//         fontSize: theme.typography.body2.fontSize,
-//         color: gray[600],
-//         "&.Mui-focused": {
-//           color: brand[500],
-//         },
-//         ...theme.applyStyles("dark", {
-//           color: gray[400],
-//           "&.Mui-focused": {
-//             color: brand[300],
-//           },
-//         }),
-//       },
-//       "& .MuiInputBase-input": {
-//         padding: "6px 8px",
-//       },
-//     }),
-//   }
-// }
+  MuiSelect: {
+    defaultProps: {
+      size: "small",
+    },
+  },
+  // MuiSelect:{
+  //   defaultProps:{
+  //      size:"small",
+  //      fullWidth:true,
+  //   },
+  //   styleOverrides:{
+  //      root: ({ theme }) => ({"& .MuiOutlinedInput-root": {
+  //         padding: "4px 8px",
+  //         borderRadius: (theme.vars || theme).shape.borderRadius,
+  //         backgroundColor: (theme.vars || theme).palette.background.paper,
+  //         "&:hover": {
+  //           borderColor: gray[400],
+  //         },
+  //         "&.Mui-focused": {
+  //           borderColor: brand[400],
+  //           boxShadow: `0 0 0 2px ${alpha(brand[500], 0.25)}`,
+  //         },
+  //         ...theme.applyStyles("dark", {
+  //           backgroundColor: (theme.vars || theme).palette.background.paper,
+  //           "&:hover": {
+  //             borderColor: gray[600],
+  //           },
+  //         }),
+  //       },
+  //       "& .MuiFormLabel-root": {
+  //         fontSize: theme.typography.body2.fontSize,
+  //         color: gray[600],
+  //         "&.Mui-focused": {
+  //           color: brand[500],
+  //         },
+  //         ...theme.applyStyles("dark", {
+  //           color: gray[400],
+  //           "&.Mui-focused": {
+  //             color: brand[300],
+  //           },
+  //         }),
+  //       },
+  //       "& .MuiInputBase-input": {
+  //         padding: "6px 8px",
+  //       },
+  //     }),
+  //   }
+  // }
 };

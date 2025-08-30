@@ -11,12 +11,13 @@ import {
   type RegisterOptions,
 } from "react-hook-form";
 type FormAutocompleteProp<T> = {
-  props?: AutocompleteProps<T, false, false, false>; // single-select, clearable, not freeSolo
+  props?: Omit<AutocompleteProps<T, boolean, boolean, false>,"options"|"renderInput">; // single-select, clearable, not freeSolo
   control: Control<any>;
   label: string;
   name: string;
   rules: RegisterOptions;
   options: T[];
+  loading?:boolean;
   size?: GridSize | { xs?: GridSize; sm?: GridSize; md?: GridSize; lg?: GridSize; xl?: GridSize };
 };
 
@@ -27,7 +28,8 @@ function FormAutoComplete<T>({
   label,
   rules,
   options,
-  size
+  size,
+  loading
 }: FormAutocompleteProp<T>) {
   return (
     <Grid size={size}>
@@ -41,12 +43,14 @@ function FormAutoComplete<T>({
         }) => {
           return (
             <Autocomplete
-              {...props}
-              {...field}
-              options={options}
+            {...(Boolean(props) ? props : {options:[]})}
+            {...field}
+            options={options || []}
               fullWidth
-              value={value}
+              value={value ?? (props?.multiple ? [] : null)}
+              loading={Boolean(loading)}
               onChange={(_, data) => {
+                console.log(data)
                 onChange(data);
               }}
               renderInput={(params) => (

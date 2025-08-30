@@ -7,6 +7,7 @@ import ListWork from "../pages/WorkOrder/ListWork";
 import PageNotFound from "../pages/ErrorHandling/PageNotFound";
 import Login from "../pages/Auth/Login";
 import Authentication from "../pages/Auth/Authentication";
+import AddProject from "../pages/Projects/AddProject";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
         element: <Authentication />,
         children: [
           { index:true, Component: Dashboard },
+          { path: routeList.addProject, Component: AddProject },
           { path: routeList.addWork, Component: AddWork },
           { path: routeList.listWork, Component: ListWork },
         ],

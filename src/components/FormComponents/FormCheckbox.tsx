@@ -55,7 +55,7 @@ function FormCheckbox({
                 label={Boolean(rules.required) ? `${label} *` : label}
                 control={
                   <Checkbox
-                    {...props}
+                    {...(props ?? {})}
                     {...field}
                     name={name}
                     size="small"
