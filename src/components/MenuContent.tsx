@@ -1,49 +1,132 @@
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Stack from "@mui/material/Stack";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import AnalyticsRoundedIcon from "@mui/icons-material/AnalyticsRounded";
-import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
-import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
-import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  Stack,
+} from "@mui/material";
+import {
+  ExpandLess,
+  ExpandMore,
+  HomeRounded,
+  AnalyticsRounded,
+  PeopleRounded,
+  AssignmentRounded,
+  SettingsRounded,
+  InfoRounded,
+  HelpRounded,
+} from "@mui/icons-material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLayoutData } from "../hooks";
 import routeList from "../routes/routeList";
-import { useNavigate } from "react-router-dom";
-import { type MouseEvent } from "react";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 const mainListItems = [
-  { text: "Home", icon: <HomeRoundedIcon />,path:routeList.dashboard },
-  { text: "Project", icon: <AnalyticsRoundedIcon /> ,path:routeList.listProject  },
-  { text: "Clients", icon: <PeopleRoundedIcon />  ,path:routeList.listClient },
-  { text: "Work", icon: <AssignmentRoundedIcon /> ,path:routeList.listWork  },
-  { text: "Settings", icon: <SettingsRoundedIcon /> ,path:routeList.settings  },
-  { text: "About", icon: <InfoRoundedIcon /> ,path:routeList.about  },
-  { text: "Feedback", icon: <HelpRoundedIcon /> ,path:routeList.feedback  },
+  {
+    text: "Home",
+    icon: <HomeRounded />,
+    path: routeList.dashboard,
+    submenu: [],
+  },
+  {
+    text: "Project",
+    icon: <AnalyticsRounded />,
+    path: null,
+    submenu: [
+      { text: "Add", icon: <AddCircleIcon />, path: routeList.addProject },
+      { text: "List", icon: <FormatListBulletedIcon />, path: routeList.listProject },
+    ],
+  },
+  {
+    text: "Clients",
+    icon: <PeopleRounded />,
+    path: routeList.listClient,
+    submenu: [],
+  },
+  {
+    text: "Work",
+    icon: <AssignmentRounded />,
+    path: routeList.listWork,
+    submenu: [],
+  },
+  {
+    text: "Settings",
+    icon: <SettingsRounded />,
+    path: routeList.settings,
+    submenu: [],
+  },
+  { text: "About", icon: <InfoRounded />, path: routeList.about, submenu: [] },
+  {
+    text: "Feedback",
+    icon: <HelpRounded />,
+    path: routeList.feedback,
+    submenu: [],
+  },
 ];
 
 export default function MenuContent() {
-  const {toggle,handleBreadCrumb} = useLayoutData()
-  const navigate = useNavigate()
-  const handleNavigate = (e:MouseEvent<HTMLDivElement>)=>{
-    const path = String(e.currentTarget.dataset.path);
-    const page = String(e.currentTarget.dataset.page);
-    navigate(path)
-    handleBreadCrumb(["Dashboard",page])
-  }
+  const { toggle, handleBreadCrumb } = useLayoutData();
+  const navigate = useNavigate();
+
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+
+  const handleNavigate = (path: string | null, page: string) => {
+    if (path) {
+      navigate(path);
+      handleBreadCrumb(["Dashboard", page]);
+    }
+  };
+
+  const handleToggleSubmenu = (text: string) => {
+    setOpenSubmenu((prev) => (prev === text ? null : text));
+  };
+
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
-      <List >
+      <List>
         {mainListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: "block",my:.5 }}>
-            <ListItemButton data-path={item.path} data-page={item.text} onClick={handleNavigate} selected={index === 0}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              {toggle && <ListItemText primary={item.text} />}
-            </ListItemButton>
-          </ListItem>
+          <div key={index}>
+            <ListItem disablePadding sx={{ display: "block", my: 0.5 }}>
+              <ListItemButton
+                onClick={() =>
+                  item.submenu.length
+                    ? handleToggleSubmenu(item.text)
+                    : handleNavigate(item.path, item.text)
+                }
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                {toggle && <ListItemText primary={item.text} />}
+                {item.submenu.length > 0 &&
+                  (openSubmenu === item.text ? <ExpandLess /> : <ExpandMore />)}
+              </ListItemButton>
+            </ListItem>
+
+            {/* Submenu (collapsible) */}
+            {item.submenu.length > 0 && (
+              <Collapse
+                in={openSubmenu === item.text}
+                timeout="auto"
+                unmountOnExit
+              >
+                <List component="div" disablePadding>
+                  {item.submenu.map((sub, subIndex) => (
+  
+                    <ListItem key={`submenu${subIndex}`} disablePadding sx={{ display: "block", my: 0.5 }}>
+                      <ListItemButton
+                        onClick={() => handleNavigate(sub.path, sub.text)}
+                      >
+                        <ListItemIcon>{sub.icon}</ListItemIcon>
+                        <ListItemText primary={sub.text} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+          </div>
         ))}
       </List>
     </Stack>

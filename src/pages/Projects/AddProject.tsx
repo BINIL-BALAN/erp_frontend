@@ -7,10 +7,14 @@ import {
   FormText,
 } from "../../components/FormComponents";
 import useAddWorkHook from "./useAddWorkhook";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import routeList from "../../routes/routeList";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+
 const gridSpace = { md: 4, sm: 12 };
 function AddProject() {
+  const navigate = useNavigate()
   const { control, handleSubmit, reset, getValues } = useForm();
   const onsubmit = (e: any) => {
     console.log(e);
@@ -45,9 +49,9 @@ function AddProject() {
       state: String(e.target.value.name),
     });
   };
-  useEffect(() => {
-    console.log(state.data);
-  }, [state.data]);
+  const handleNavigte = ()=>{
+    navigate(`/${routeList.listProject}`)
+  }
   return (
     <>
       <Stack
@@ -56,7 +60,7 @@ function AddProject() {
         alignItems={"center"}
       >
         <Typography variant="body2" fontWeight={600}>Add project</Typography>
-        <IconButton>
+        <IconButton onClick={handleNavigte}>
           <FormatListBulletedIcon/>
         </IconButton>
       </Stack>
